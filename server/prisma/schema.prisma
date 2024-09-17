@@ -1,0 +1,27 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex", "fullTextSearch"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("MYSQL_URL")
+}
+
+model categorias {
+  coocat      String @id @db.VarChar(4)
+  descripcion String @db.VarChar(50)
+}
+
+model productos {
+  codigo      String @id @db.VarChar(8)
+  nombre      String @db.VarChar(100)
+  descripcion String @db.Text
+  cantidad    Float
+  stockmax    Float
+  srockmin    Float
+  precio      Float
+  codcat      String @db.VarChar(4)
+
+  @@index([codcat], map: "codcat")
+}
